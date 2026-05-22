@@ -1,18 +1,23 @@
-package main 
-import "fmt"
+package main
 
-// mencari produk berdasarkan ukuran / warna 
+import (
+	"fmt"
+)
+
+// mencari produk berdasarkan ukuran / warna
 
 const DATAMAX int = 1000
-type pakaian struct{
-	id, stok int 
-	nama, warna, ukuran string 
+
+type pakaian struct {
+	id, stok            int
+	nama, warna, ukuran string
 }
 type datapakaian [DATAMAX]pakaian
+
 var daftarToko datapakaian
 var jumlahData int = 0
 
-func menu_utama(){
+func menu_utama() {
 	fmt.Println("+-----------------------------+")
 	fmt.Println("|     Selamat Datang Di       |")
 	fmt.Println("|  Aplikasi Manajemen Fashion |")
@@ -25,7 +30,7 @@ func menu_utama(){
 	fmt.Print("Pilih [1/2/3/4]?")
 }
 
-func inisialisasiData(){
+func inisialisasiData() {
 	daftarToko[0] = pakaian{id: 1, nama: "Kaos Polos", warna: "Merah", ukuran: "M", stok: 15}
 	daftarToko[1] = pakaian{id: 2, nama: "Kemeja Flanel", warna: "Biru", ukuran: "L", stok: 10}
 	daftarToko[2] = pakaian{id: 3, nama: "Celana Chino", warna: "Hitam", ukuran: "L", stok: 20}
@@ -126,41 +131,66 @@ func inisialisasiData(){
 	daftarToko[97] = pakaian{id: 98, nama: "Celana Tactical", warna: "Hijau", ukuran: "L", stok: 11}
 	daftarToko[98] = pakaian{id: 99, nama: "Jaket Hoodie", warna: "Putih", ukuran: "M", stok: 14}
 	daftarToko[99] = pakaian{id: 100, nama: "Blouse Casual", warna: "Biru", ukuran: "XS", stok: 12}
-	
+
 	jumlahData = 100
 }
 
-func daftarpakaian(){
-	var i int 
-	
+func daftarpakaian() {
+	var i int
+
 	fmt.Println("\n+-------+----------------------+-----------------+------------+-------+")
 	fmt.Printf("| %-5s | %-20s | %-15s | %-10s | %-5s |\n", "ID", "Nama Pakaian", "Warna", "Ukuran", "Stok")
 	fmt.Println("+-------+----------------------+-----------------+------------+-------+")
-	
+
 	for i = 0; i < jumlahData; i++ {
-		fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n", 
-			daftarToko[i].id, 
-			daftarToko[i].nama, 
-			daftarToko[i].warna, 
-			daftarToko[i].ukuran, 
+		fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n",
+			daftarToko[i].id,
+			daftarToko[i].nama,
+			daftarToko[i].warna,
+			daftarToko[i].ukuran,
 			daftarToko[i].stok)
 	}
 	fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
 }
 
-func main(){
+func sequentialSearchbySize(data datapakaian, n int, ukuran string) int {
+	var found, i int
+	found = -1
+	i = 0
+	for i > n && found == -1 {
+		if data[i].ukuran == ukuran {
+			found = i
+		}
+		i++
+	}
+	return found
+}
+func sequentialSearchbyColor(data datapakaian, n int, warna string) int {
+	var found, i int
+	found = -1
+	i = 0
+	for i > n && found == -1 {
+		if data[i].warna == warna {
+			found = i
+		}
+		i++
+	}
+	return found
+}
+func main() {
 	var pilih int
 
 	inisialisasiData()
-	
+
 	for {
 		menu_utama()
 		fmt.Scan(&pilih)
 		switch pilih {
-			case 1 : daftarpakaian()
-			case 2 : 
-			case 3 : 
-			case 4 : 
+		case 1:
+			daftarpakaian()
+		case 2:
+		case 3:
+		case 4:
 		}
 	}
 }
