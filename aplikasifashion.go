@@ -26,8 +26,11 @@ func menu_utama() {
 	fmt.Printf("| %-27s |\n", "[2] Tambah Pakaian")
 	fmt.Printf("| %-27s |\n", "[3] Edit Pakaian")
 	fmt.Printf("| %-27s |\n", "[4] Hapus Pakaian")
+	fmt.Printf("| %-27s |\n", "[5] Hapus Cari Pakaian")
+	fmt.Printf("| %-27s |\n", "[6] Sortir Pakaian")
+	fmt.Printf("| %-27s |\n", "[0] Exit")
 	fmt.Println("+-----------------------------+")
-	fmt.Print("Pilih [1/2/3/4]?")
+	fmt.Print("Pilih [0-6]?")
 }
 
 func inisialisasiData() {
@@ -134,7 +137,12 @@ func inisialisasiData() {
 
 	jumlahData = 100
 }
-
+func header() {
+	fmt.Println("+-----------------------------+")
+	fmt.Println("|     Selamat Datang Di       |")
+	fmt.Println("|  Aplikasi Manajemen Fashion |")
+	fmt.Println("+-----------------------------+")
+}
 func daftarpakaian() {
 	var i int
 
@@ -177,6 +185,36 @@ func sequentialSearchbyColor(data datapakaian, n int, warna string) int {
 	}
 	return found
 }
+func isNumber(input int) bool {
+	if input >= 0 {
+		return true
+	}
+	return false
+}
+func tambahPakaian(data *datapakaian) {
+	var inputStok int
+	header()
+	data[jumlahData].id = jumlahData + 1
+	fmt.Println("Fitur Tambah Pakaian")
+	fmt.Print("Masukkan Nama   : ")
+	fmt.Scan(&data[jumlahData].nama)
+
+	fmt.Print("Masukkan Warna  : ")
+	fmt.Scan(&data[jumlahData].warna)
+
+	fmt.Print("Masukkan Ukuran : ")
+	fmt.Scan(&data[jumlahData].ukuran)
+
+	fmt.Print("Masukkan Stok   : ")
+	fmt.Scan(&inputStok)
+	for !isNumber(inputStok) {
+		fmt.Println("Input Tidak Valid, Masukkan Stok yang benar: ")
+		fmt.Print("Masukkan Stok   : ")
+		fmt.Scan(&inputStok)
+	}
+	data[jumlahData].stok = inputStok
+	jumlahData++
+}
 func main() {
 	var pilih int
 
@@ -189,8 +227,16 @@ func main() {
 		case 1:
 			daftarpakaian()
 		case 2:
+			tambahPakaian(&daftarToko)
 		case 3:
 		case 4:
+		case 5:
+		case 6:
+		case 0:
+			fmt.Println("Terimakasih telah menggunakan aplikasi ini >_<")
+			return
+		default:
+			fmt.Println("Pilihan tidak valid, silahkan coba lagi")
 		}
 	}
 }
