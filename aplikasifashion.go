@@ -1,39 +1,33 @@
-package main
+package main 
+import "fmt"
 
-import (
-	"fmt"
-)
-
-// mencari produk berdasarkan ukuran / warna
+// mencari produk berdasarkan ukuran / warna 
 
 const DATAMAX int = 1000
-
-type pakaian struct {
-	id, stok            int
-	nama, warna, ukuran string
+type pakaian struct{
+	id, stok int 
+	nama, warna, ukuran string 
 }
 type datapakaian [DATAMAX]pakaian
-
 var daftarToko datapakaian
 var jumlahData int = 0
 
-func menu_utama() {
+func menu_utama(){
 	fmt.Println("+-----------------------------+")
 	fmt.Println("|     Selamat Datang Di       |")
 	fmt.Println("|  Aplikasi Manajemen Fashion |")
 	fmt.Println("+-----------------------------+")
-	fmt.Printf("| %-27s |\n", "[1] Daftar Pakaian")
-	fmt.Printf("| %-27s |\n", "[2] Tambah Pakaian")
+	fmt.Printf("| %-27s |\n", "[1] Daftar Pakaian") // done
+	fmt.Printf("| %-27s |\n", "[2] Tambah Pakaian") 
 	fmt.Printf("| %-27s |\n", "[3] Edit Pakaian")
 	fmt.Printf("| %-27s |\n", "[4] Hapus Pakaian")
-	fmt.Printf("| %-27s |\n", "[5] Hapus Cari Pakaian")
-	fmt.Printf("| %-27s |\n", "[6] Sortir Pakaian")
-	fmt.Printf("| %-27s |\n", "[0] Exit")
+	fmt.Printf("| %-27s |\n", "[5] Cari Pakaian") //asc & desc 
+	fmt.Printf("| %-27s |\n", "[6] Sortir Pakaian") //asc & desc
 	fmt.Println("+-----------------------------+")
-	fmt.Print("Pilih [0-6]?")
+	fmt.Print("Pilih [1 - 6]?")
 }
 
-func inisialisasiData() {
+func inisialisasiData(){
 	daftarToko[0] = pakaian{id: 1, nama: "Kaos Polos", warna: "Merah", ukuran: "M", stok: 15}
 	daftarToko[1] = pakaian{id: 2, nama: "Kemeja Flanel", warna: "Biru", ukuran: "L", stok: 10}
 	daftarToko[2] = pakaian{id: 3, nama: "Celana Chino", warna: "Hitam", ukuran: "L", stok: 20}
@@ -134,109 +128,390 @@ func inisialisasiData() {
 	daftarToko[97] = pakaian{id: 98, nama: "Celana Tactical", warna: "Hijau", ukuran: "L", stok: 11}
 	daftarToko[98] = pakaian{id: 99, nama: "Jaket Hoodie", warna: "Putih", ukuran: "M", stok: 14}
 	daftarToko[99] = pakaian{id: 100, nama: "Blouse Casual", warna: "Biru", ukuran: "XS", stok: 12}
-
+	
 	jumlahData = 100
 }
-func header() {
-	fmt.Println("+-----------------------------+")
-	fmt.Println("|     Selamat Datang Di       |")
-	fmt.Println("|  Aplikasi Manajemen Fashion |")
-	fmt.Println("+-----------------------------+")
-}
-func daftarpakaian() {
-	var i int
 
+func daftarpakaian(){
+	var i int 
+	
 	fmt.Println("\n+-------+----------------------+-----------------+------------+-------+")
 	fmt.Printf("| %-5s | %-20s | %-15s | %-10s | %-5s |\n", "ID", "Nama Pakaian", "Warna", "Ukuran", "Stok")
 	fmt.Println("+-------+----------------------+-----------------+------------+-------+")
-
+	
 	for i = 0; i < jumlahData; i++ {
-		fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n",
-			daftarToko[i].id,
-			daftarToko[i].nama,
-			daftarToko[i].warna,
-			daftarToko[i].ukuran,
+		fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n", 
+			daftarToko[i].id, 
+			daftarToko[i].nama, 
+			daftarToko[i].warna, 
+			daftarToko[i].ukuran, 
 			daftarToko[i].stok)
 	}
 	fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
 }
 
-func sequentialSearchbySize(data datapakaian, n int, ukuran string) int {
-	var found, i int
-	found = -1
-	i = 0
-	for i > n && found == -1 {
-		if data[i].ukuran == ukuran {
-			found = i
+func menu_searching() {
+	var pilih, pilih2, pilih3, pilih4 int
+	var katakunci string
+	
+	clearScreen()
+	
+	fmt.Println("+------------------------------------------+")
+	fmt.Println("|              Anda Berada Di              |")
+	fmt.Println("|          Menu Pencarian Pakaian          |")
+	fmt.Println("+------------------------------------------+")
+	fmt.Printf("| %-40s |\n", "[1] Sequential Search") 
+	fmt.Printf("| %-40s |\n", "[2] Binary Search") 
+	fmt.Printf("| %-40s |\n", "[0] Menu Utama") 
+	fmt.Println("+------------------------------------------+")
+	fmt.Print("Pilih [1/2/0]? ")
+	fmt.Scan(&pilih)
+	
+	if pilih == 1 {
+		clearScreen() 
+		fmt.Println("+------------------------------------------+")
+		fmt.Println("|              Anda Berada Di              |")
+		fmt.Println("|           Menu Sequential Search         |") 
+		fmt.Println("+------------------------------------------+")
+		fmt.Printf("| %-40s |\n", "[1] Ukuran") 
+		fmt.Printf("| %-40s |\n", "[2] Warna") 
+		fmt.Printf("| %-40s |\n", "[0] Menu Searching") 
+		fmt.Println("+------------------------------------------+")
+		fmt.Print("Pilih [1/2/0]? ")
+		fmt.Scan(&pilih2)
+		
+		if pilih2 == 1 {
+			fmt.Print("Ukuran yang dicari (Sequential): ")
+			fmt.Scan(&katakunci)
+			//Kayla
+			// Panggil fungsi pencarian sequential ukuran di sini
+			
+		} else if pilih2 == 2 {
+			fmt.Print("Warna yang dicari (Sequential): ")
+			fmt.Scan(&katakunci)
+			//Kayla
+			// Panggil fungsi pencarian sequential warna di sini
+			
 		}
-		i++
-	}
-	return found
-}
-func sequentialSearchbyColor(data datapakaian, n int, warna string) int {
-	var found, i int
-	found = -1
-	i = 0
-	for i > n && found == -1 {
-		if data[i].warna == warna {
-			found = i
+
+	} else if pilih == 2 {
+		clearScreen() 
+		fmt.Println("+------------------------------------------+")
+		fmt.Println("|              Anda Berada Di              |")
+		fmt.Println("|             Menu Binary Search           |")
+		fmt.Println("+------------------------------------------+")
+		fmt.Printf("| %-40s |\n", "[1] Ukuran") 
+		fmt.Printf("| %-40s |\n", "[2] Warna") 
+		fmt.Printf("| %-40s |\n", "[0] Menu Searching") 
+		fmt.Println("+------------------------------------------+")
+		fmt.Print("Pilih [1/2/0]? ")
+		fmt.Scan(&pilih2)
+		
+		if pilih2 == 1 {
+			clearScreen() 
+			fmt.Println("+------------------------------------------+")
+			fmt.Println("|              Anda Berada Di              |")
+			fmt.Println("|         Menu Ukuran Binary Search        |")
+			fmt.Println("+------------------------------------------+")
+			fmt.Printf("| %-40s |\n", "[1] Ascending") 
+			fmt.Printf("| %-40s |\n", "[2] Descending") 
+			fmt.Printf("| %-40s |\n", "[0] Menu Searching") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Print("Pilih [1/2/0]? ")
+			fmt.Scan(&pilih3)
+			
+			if pilih3 == 1 {
+				fmt.Print("Ukuran yang dicari (Binary Asc): ")
+				fmt.Scan(&katakunci)
+				ukuranBinarySearchAsc(daftarToko, jumlahData, katakunci)
+			} else if pilih3 == 2 {
+				fmt.Print("Ukuran yang dicari (Binary Desc): ")
+				fmt.Scan(&katakunci)
+				ukuranBinarySearchDesc(daftarToko, jumlahData, katakunci)
+			} else if pilih3 == 0 {
+				clearScreen()
+				menu_searching()
+			}
+			
+		} else if pilih2 == 2 {
+			clearScreen() 
+			fmt.Println("+------------------------------------------+")
+			fmt.Println("|              Anda Berada Di              |")
+			fmt.Println("|          Menu Warna Binary Search        |")
+			fmt.Println("+------------------------------------------+")
+			fmt.Printf("| %-40s |\n", "[1] Ascending") 
+			fmt.Printf("| %-40s |\n", "[2] Descending") 
+			fmt.Printf("| %-40s |\n", "[0] Menu Searching") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Print("Pilih [1/2/0]? ")
+			fmt.Scan(&pilih4)
+			
+			if pilih4 == 1 {
+				fmt.Print("Warna yang dicari: ")
+				fmt.Scan(&katakunci)
+				warnaBinarySearchAsc(daftarToko, jumlahData, katakunci)
+			} else if pilih4 == 2 {
+				fmt.Print("Warna yang dicari: ")
+				fmt.Scan(&katakunci)
+				warnaBinarySearchDesc(daftarToko, jumlahData, katakunci)
+			} else if pilih4 == 0 {
+				clearScreen()
+				menu_searching()
+			}
+		} else if pilih2 == 0 {
+			clearScreen()
+			menu_searching()
 		}
-		i++
+	} else if pilih == 0 {
+		clearScreen()
+		menu_utama()
 	}
-	return found
 }
-func isNumber(input int) bool {
-	if input >= 0 {
-		return true
+
+//ubah huruf jadi abjad
+func bobotUkuran(ukuran string) int {
+	if ukuran == "XS" {
+		return 1
+	} else if ukuran == "S" {
+		return 2
+	} else if ukuran == "M" {
+		return 3
+	} else if ukuran == "L" {
+		return 4
+	} else if ukuran == "XL" {
+		return 5
+	} else if ukuran == "XXL" {
+		return 6
+	} else if ukuran == "XXXL" {
+		return 7
 	}
-	return false
+	return 0 // Jika ada ukuran di luar itu
 }
-func tambahPakaian(data *datapakaian) {
-	var inputStok int
-	header()
-	data[jumlahData].id = jumlahData + 1
-	fmt.Println("Fitur Tambah Pakaian")
-	fmt.Print("Masukkan Nama   : ")
-	fmt.Scan(&data[jumlahData].nama)
 
-	fmt.Print("Masukkan Warna  : ")
-	fmt.Scan(&data[jumlahData].warna)
-
-	fmt.Print("Masukkan Ukuran : ")
-	fmt.Scan(&data[jumlahData].ukuran)
-
-	fmt.Print("Masukkan Stok   : ")
-	fmt.Scan(&inputStok)
-	for !isNumber(inputStok) {
-		fmt.Println("Input Tidak Valid, Masukkan Stok yang benar: ")
-		fmt.Print("Masukkan Stok   : ")
-		fmt.Scan(&inputStok)
+//ukuran binary search Asc
+func ukuranBinarySearchAsc(A datapakaian, n int, x string){
+	var left, right, mid int 
+	var idx int 
+	var batasKanan, batasKiri int
+	
+	idx = -1 
+	left = 0
+	right = n - 1
+	for left <= right && idx == -1 {
+		mid = (left + right)/2
+		if A[mid].ukuran == x {
+			idx = mid 
+		} else if bobotUkuran(x) > bobotUkuran(A[mid].ukuran) {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
 	}
-	data[jumlahData].stok = inputStok
-	jumlahData++
+	if idx != -1 {
+		
+		batasKiri = idx 
+		batasKanan = idx
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kiri tanpa break
+		for batasKiri > 0 && A[batasKiri-1].ukuran == x {
+			batasKiri--
+		}
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kanan tanpa break
+		for batasKanan < n-1 && A[batasKanan+1].ukuran == x {
+			batasKanan++
+		}
+		
+		// Cetak semua data dari batasKiri sampai batasKanan
+		fmt.Println("\n+-------+----------------------+-----------------+------------+-------+")
+		fmt.Printf("| %-5s | %-20s | %-15s | %-10s | %-5s |\n", "ID", "Nama Pakaian", "Warna", "Ukuran", "Stok")
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+")
+		
+		var i int
+		for i = batasKiri; i <= batasKanan; i++ {
+			fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n", 
+				A[i].id, A[i].nama, A[i].warna, A[i].ukuran, A[i].stok)
+		}
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
+		
+	} else {
+		fmt.Println("\nData dengan ukuran", x, "tidak ditemukan.\n")
+	}
 }
-func main() {
+
+//ukuran binary search desc
+func ukuranBinarySearchDesc(A datapakaian, n int, x string){
+	var left, right, mid int 
+	var idx int 
+	var batasKanan, batasKiri int
+	
+	idx = -1 
+	left = 0
+	right = n - 1
+	for left <= right && idx == -1 {
+		mid = (left + right)/2
+		if A[mid].ukuran == x {
+			idx = mid 
+		} else if bobotUkuran(x) < bobotUkuran(A[mid].ukuran) {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if idx != -1 {
+		
+		batasKiri = idx 
+		batasKanan = idx
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kiri tanpa break
+		for batasKiri > 0 && A[batasKiri-1].ukuran == x {
+			batasKiri--
+		}
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kanan tanpa break
+		for batasKanan < n-1 && A[batasKanan+1].ukuran == x {
+			batasKanan++
+		}
+		
+		// Cetak semua data dari batasKiri sampai batasKanan
+		fmt.Println("\n+-------+----------------------+-----------------+------------+-------+")
+		fmt.Printf("| %-5s | %-20s | %-15s | %-10s | %-5s |\n", "ID", "Nama Pakaian", "Warna", "Ukuran", "Stok")
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+")
+		
+		var i int
+		for i = batasKiri; i <= batasKanan; i++ {
+			fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n", 
+				A[i].id, A[i].nama, A[i].warna, A[i].ukuran, A[i].stok)
+		}
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
+		
+	} else {
+		fmt.Println("\nData dengan ukuran", x, "tidak ditemukan.\n")
+	}
+}
+
+//warna binary search asc 
+func warnaBinarySearchAsc(){
+	var left, right, mid int 
+	var idx int 
+	var batasKanan, batasKiri int
+	
+	idx = -1 
+	left = 0
+	right = n - 1
+	for left <= right && idx == -1 {
+		mid = (left + right)/2
+		if A[mid].warna == x {
+			idx = mid 
+		} else if x > A[mid].warna {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if idx != -1 {
+		
+		batasKiri = idx 
+		batasKanan = idx
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kiri tanpa break
+		for batasKiri > 0 && A[batasKiri-1].warna == x {
+			batasKiri--
+		}
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kanan tanpa break
+		for batasKanan < n-1 && A[batasKanan+1].warna == x {
+			batasKanan++
+		}
+		
+		// Cetak semua data dari batasKiri sampai batasKanan
+		fmt.Println("\n+-------+----------------------+-----------------+------------+-------+")
+		fmt.Printf("| %-5s | %-20s | %-15s | %-10s | %-5s |\n", "ID", "Nama Pakaian", "Warna", "Ukuran", "Stok")
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+")
+		
+		var i int
+		for i = batasKiri; i <= batasKanan; i++ {
+			fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n", 
+				A[i].id, A[i].nama, A[i].warna, A[i].ukuran, A[i].stok)
+		}
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
+		
+	} else {
+		fmt.Println("\nData dengan ukuran", x, "tidak ditemukan.\n")
+	}
+}
+
+//warna binary search desc
+func warnaBinarySearchDesc(){
+	var left, right, mid int 
+	var idx int 
+	var batasKanan, batasKiri int
+	
+	idx = -1 
+	left = 0
+	right = n - 1
+	for left <= right && idx == -1 {
+		mid = (left + right)/2
+		if A[mid].warna == x {
+			idx = mid 
+		} else if x < A[mid].warna {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if idx != -1 {
+		
+		batasKiri = idx 
+		batasKanan = idx
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kiri tanpa break
+		for batasKiri > 0 && A[batasKiri-1].warna == x {
+			batasKiri--
+		}
+		
+		// Cari tahu seberapa jauh data yang sama di sebelah kanan tanpa break
+		for batasKanan < n-1 && A[batasKanan+1].warna == x {
+			batasKanan++
+		}
+		
+		// Cetak semua data dari batasKiri sampai batasKanan
+		fmt.Println("\n+-------+----------------------+-----------------+------------+-------+")
+		fmt.Printf("| %-5s | %-20s | %-15s | %-10s | %-5s |\n", "ID", "Nama Pakaian", "Warna", "Ukuran", "Stok")
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+")
+		
+		var i int
+		for i = batasKiri; i <= batasKanan; i++ {
+			fmt.Printf("| %-5d | %-20s | %-15s | %-10s | %-5d |\n", 
+				A[i].id, A[i].nama, A[i].warna, A[i].ukuran, A[i].stok)
+		}
+		fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
+		
+	} else {
+		fmt.Println("\nData dengan ukuran", x, "tidak ditemukan.\n")
+	}
+}
+
+//fungsi clear screen
+func clearscreen(){
+	
+}
+
+func main(){
 	var pilih int
 
 	inisialisasiData()
-
+	
 	for {
 		menu_utama()
 		fmt.Scan(&pilih)
 		switch pilih {
-		case 1:
-			daftarpakaian()
-		case 2:
-			tambahPakaian(&daftarToko)
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 0:
-			fmt.Println("Terimakasih telah menggunakan aplikasi ini >_<")
-			return
-		default:
-			fmt.Println("Pilihan tidak valid, silahkan coba lagi")
+			case 1 : daftarpakaian()
+			case 2 : 
+			case 3 : 
+			case 4 : 
+			case 5 : menu_searching()
+			case 6 : 
 		}
 	}
 }
