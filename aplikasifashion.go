@@ -17,14 +17,30 @@ func menu_utama(){
 	fmt.Println("|     Selamat Datang Di       |")
 	fmt.Println("|  Aplikasi Manajemen Fashion |")
 	fmt.Println("+-----------------------------+")
-	fmt.Printf("| %-27s |\n", "[1] Daftar Pakaian") // done
-	fmt.Printf("| %-27s |\n", "[2] Tambah Pakaian") 
-	fmt.Printf("| %-27s |\n", "[3] Edit Pakaian")
-	fmt.Printf("| %-27s |\n", "[4] Hapus Pakaian")
-	fmt.Printf("| %-27s |\n", "[5] Cari Pakaian") //asc & desc 
-	fmt.Printf("| %-27s |\n", "[6] Sortir Pakaian") //asc & desc
+	fmt.Printf("| %-40s |\n", "[1] Daftar Data Pakaian") 
+	fmt.Printf("| %-40s |\n", "[2] Tambah  Data Pakaian") 
+	fmt.Printf("| %-40s |\n", "[3] Edit Data Pakaian")
+	fmt.Printf("| %-40s |\n", "[4] Hapus Data Pakaian")
+	fmt.Printf("| %-40s |\n", "[5] Cari Data Pakaian")  
+	fmt.Printf("| %-40s |\n", "[6] Sortir Data Pakaian") 
+	fmt.Printf("| %-40s |\n", "[0] Exit")
 	fmt.Println("+-----------------------------+")
 	fmt.Print("Pilih [1 - 6]?")
+}
+
+//menu tambah data
+func (){
+	
+}
+
+//menu edit data 
+func (){
+	
+}
+
+//menu hapus data
+func (){
+	
 }
 
 func inisialisasiData(){
@@ -150,6 +166,7 @@ func daftarpakaian(){
 	fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
 }
 
+//menu searching
 func menu_searching() {
 	var pilih, pilih2, pilih3, pilih4 int
 	var katakunci string
@@ -288,7 +305,17 @@ func bobotUkuran(ukuran string) int {
 	return 0 // Jika ada ukuran di luar itu
 }
 
-//ukuran binary search Asc
+//ukuran sequential search
+func ukuranSequentialSearch(A datapakaian, n int, x string){
+	
+}
+
+//warna sequential search
+func warnaSequentialSearch(A datapakaian, n int, x string){
+	
+}
+
+//ukuran binary search asc
 func ukuranBinarySearchAsc(A datapakaian, n int, x string){
 	var left, right, mid int 
 	var idx int 
@@ -391,7 +418,7 @@ func ukuranBinarySearchDesc(A datapakaian, n int, x string){
 }
 
 //warna binary search asc 
-func warnaBinarySearchAsc(){
+func warnaBinarySearchAsc(A datapakaian, n int, x string){
 	var left, right, mid int 
 	var idx int 
 	var batasKanan, batasKiri int
@@ -442,7 +469,7 @@ func warnaBinarySearchAsc(){
 }
 
 //warna binary search desc
-func warnaBinarySearchDesc(){
+func warnaBinarySearchDesc(A datapakaian, n int, x string){
 	var left, right, mid int 
 	var idx int 
 	var batasKanan, batasKiri int
@@ -492,8 +519,213 @@ func warnaBinarySearchDesc(){
 	}
 }
 
+//menu sorting 
+func menuSorting(){
+	var pilih, pilih2, pilih3, pilih4, pilih21 int
+	var katakunci string
+	
+	clearScreen()
+	
+	fmt.Println("+------------------------------------------+")
+	fmt.Println("|              Anda Berada Di              |")
+	fmt.Println("|           Menu Sorting Pakaian           |")
+	fmt.Println("+------------------------------------------+")
+	fmt.Printf("| %-40s |\n", "[1] Selection Sort") 
+	fmt.Printf("| %-40s |\n", "[2] Insertion Sort") 
+	fmt.Printf("| %-40s |\n", "[0] Menu Utama") 
+	fmt.Println("+------------------------------------------+")
+	fmt.Print("Pilih [1/2/0]? ")
+	fmt.Scan(&pilih)
+	
+	if pilih == 1 {
+		clearScreen() 
+		fmt.Println("+------------------------------------------+")
+		fmt.Println("|              Anda Berada Di              |")
+		fmt.Println("|            Menu Selection Sort           |") 
+		fmt.Println("+------------------------------------------+")
+		fmt.Printf("| %-40s |\n", "[1] Ukuran") 
+		fmt.Printf("| %-40s |\n", "[2] Warna") 
+		fmt.Printf("| %-40s |\n", "[0] Menu Sorting") 
+		fmt.Println("+------------------------------------------+")
+		fmt.Print("Pilih [1/2/0]? ")
+		fmt.Scan(&pilih2)
+		
+		if pilih2 == 1 {	
+			clearScreen()
+			fmt.Println("+------------------------------------------+")
+			fmt.Println("|              Anda Berada Di              |")
+			fmt.Println("|        Menu Ukuran Selection Sort        |") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Printf("| %-40s |\n", "[1] Asending") 
+			fmt.Printf("| %-40s |\n", "[2] Decending") 
+			fmt.Printf("| %-40s |\n", "[0] Menu Sorting") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Print("Pilih [1/2/0]? ")
+			fmt.Scan(&pilih21)
+			
+			if pilih21 == 1 {
+				fmt.Print("Ukuran yang dicari : ")
+				fmt.Scan(&katakunci)
+				// Panggil fungsi selection sort ukuran di sini
+			} else if pilih21 == 2{
+				fmt.Print("Ukuran yang dicari : ")
+				fmt.Scan(&katakunci)
+				// Panggil fungsi selection sort ukuran di sini
+			} else if pilih21 == 0 {
+				clearScreen()
+				menuSorting()
+			}
+			
+		} else if pilih2 == 2 {
+			clearScreen()
+			fmt.Println("+------------------------------------------+")
+			fmt.Println("|              Anda Berada Di              |")
+			fmt.Println("|        Menu Warna Selection Sort        |") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Printf("| %-40s |\n", "[1] Asending") 
+			fmt.Printf("| %-40s |\n", "[2] Decending") 
+			fmt.Printf("| %-40s |\n", "[0] Menu Sorting") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Print("Pilih [1/2/0]? ")
+			fmt.Scan(&pilih21)
+			
+			if pilih21 == 1 {
+				fmt.Print("Ukuran yang dicari : ")
+				fmt.Scan(&katakunci)
+				// Panggil fungsi selection sort warna di sini
+			} else if pilih21 == 2{
+				fmt.Print("Ukuran yang dicari : ")
+				fmt.Scan(&katakunci)
+				// Panggil fungsi selection sort warna di sini
+			} else if pilih21 == 0 {
+				clearScreen()
+				menuSorting()
+			}
+		}
+	} else if pilih == 2 {
+		clearScreen() 
+		fmt.Println("+------------------------------------------+")
+		fmt.Println("|              Anda Berada Di              |")
+		fmt.Println("|            Menu Insertion Sort           |")
+		fmt.Println("+------------------------------------------+")
+		fmt.Printf("| %-40s |\n", "[1] Ukuran") 
+		fmt.Printf("| %-40s |\n", "[2] Warna") 
+		fmt.Printf("| %-40s |\n", "[0] Menu Searching") 
+		fmt.Println("+------------------------------------------+")
+		fmt.Print("Pilih [1/2/0]? ")
+		fmt.Scan(&pilih2)
+		
+		if pilih2 == 1 {
+			clearScreen() 
+			fmt.Println("+------------------------------------------+")
+			fmt.Println("|              Anda Berada Di              |")
+			fmt.Println("|         Menu Ukuran Insertion Sort       |")
+			fmt.Println("+------------------------------------------+")
+			fmt.Printf("| %-40s |\n", "[1] Ascending") 
+			fmt.Printf("| %-40s |\n", "[2] Descending") 
+			fmt.Printf("| %-40s |\n", "[0] Menu Sorting") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Print("Pilih [1/2/0]? ")
+			fmt.Scan(&pilih3)
+			
+			if pilih3 == 1 {
+				fmt.Print("Ukuran yang dicari (Binary Asc): ")
+				fmt.Scan(&katakunci)
+				// panggil fungsi
+			} else if pilih3 == 2 {
+				fmt.Print("Ukuran yang dicari (Binary Desc): ")
+				fmt.Scan(&katakunci)
+				//panggil fungsi
+			} else if pilih3 == 0 {
+				clearScreen()
+				menuSorting()
+			}
+			
+		} else if pilih2 == 2 {
+			clearScreen() 
+			fmt.Println("+------------------------------------------+")
+			fmt.Println("|              Anda Berada Di              |")
+			fmt.Println("|         Menu Warna Insertion Sort        |")
+			fmt.Println("+------------------------------------------+")
+			fmt.Printf("| %-40s |\n", "[1] Ascending") 
+			fmt.Printf("| %-40s |\n", "[2] Descending") 
+			fmt.Printf("| %-40s |\n", "[0] Menu Sorting") 
+			fmt.Println("+------------------------------------------+")
+			fmt.Print("Pilih [1/2/0]? ")
+			fmt.Scan(&pilih4)
+			
+			if pilih4 == 1 {
+				fmt.Print("Warna yang dicari: ")
+				fmt.Scan(&katakunci)
+				//panggil fungsi
+			} else if pilih4 == 2 {
+				fmt.Print("Warna yang dicari: ")
+				fmt.Scan(&katakunci)
+				//panggil fungsi
+			} else if pilih4 == 0 {
+				clearScreen()
+				menuSorting()
+			}
+		} else if pilih2 == 0 {
+			clearScreen()
+			menuSorting()
+		}
+	} else if pilih == 0 {
+		clearScreen()
+		menu_utama()
+	}
+}
+
+//Muti
+//ukuran selection sort asc 
+func ukuranSelecSortAsc(A datapakaian, n int, x string){
+	
+}
+
+//ukuran selection sort desc 
+func ukuranSelecSortDesc(A datapakaian, n int, x string){
+	
+}
+
+//warna selection sort asc 
+func warnaSelecSortAsc(A datapakaian, n int, x string){
+	
+}
+
+//warna selection desc  
+func warnaSelecSortDesc(A datapakaian, n int, x string){
+	
+}
+
+//Kay
+//ukuran insertion sort asc 
+func(){
+	
+}
+
+//ukuran insertion sort desc
+func(){
+	
+}
+
+//warna insertion asc 
+func (){
+	
+}
+
+//warna insertion desc 
+func (){
+	
+}
+
+
 //fungsi clear screen
 func clearscreen(){
+	
+}
+
+//menu exit 
+func menuexit(){
 	
 }
 
@@ -511,7 +743,8 @@ func main(){
 			case 3 : 
 			case 4 : 
 			case 5 : menu_searching()
-			case 6 : 
+			case 6 : menuSorting()
+			case 0 : menuexit()
 		}
 	}
 }
