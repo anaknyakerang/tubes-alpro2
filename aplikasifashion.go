@@ -26,7 +26,7 @@ func menu_utama() {
 	fmt.Printf("| %-27s |\n", "[2] Tambah Pakaian")
 	fmt.Printf("| %-27s |\n", "[3] Edit Pakaian")
 	fmt.Printf("| %-27s |\n", "[4] Hapus Pakaian")
-	fmt.Printf("| %-27s |\n", "[5] Hapus Cari Pakaian")
+	fmt.Printf("| %-27s |\n", "[5] Cari Pakaian")
 	fmt.Printf("| %-27s |\n", "[6] Sortir Pakaian")
 	fmt.Printf("| %-27s |\n", "[0] Exit")
 	fmt.Println("+-----------------------------+")
@@ -160,7 +160,6 @@ func daftarpakaian() {
 	}
 	fmt.Println("+-------+----------------------+-----------------+------------+-------+\n")
 }
-
 func sequentialSearchbySize(data datapakaian, n int, ukuran string) int {
 	var found, i int
 	found = -1
