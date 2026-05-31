@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // mencari produk berdasarkan ukuran / warna
 
@@ -71,23 +73,39 @@ func menutambahData() {
 // //kay
 // //menu edit data
 func menuEditData() {
+	var pilih int
 	fmt.Println()
 	fmt.Println("+------------------------------------------+")
 	fmt.Println("|              Anda Berada Di              |")
 	fmt.Println("|           Menu Edit Data Pakaian         |")
 	fmt.Println("+------------------------------------------+")
 	fmt.Printf("| %-40s |\n", "[1] Edit Data Berdasarkan ID")
-	fmt.Printf("| %-40s |\n", "[2] Edit Data Berdasarkan Nama")
 	fmt.Printf("| %-40s |\n", "[0] Menu Utama")
 	fmt.Println("+------------------------------------------+")
-	fmt.Print("Pilih [0 - 2]? ")
+	fmt.Print("Pilih [0 - 1]? ")
+	fmt.Scan(&pilih)
+	if pilih == 1 {
+		editDatabyId(&daftarToko)
+	}
 }
 
 // //kay
 // //menu hapus data
-// func (){
-//
-// }
+func hapusData() {
+	var pilih int
+	fmt.Println()
+	fmt.Println("+------------------------------------------+")
+	fmt.Println("|              Anda Berada Di              |")
+	fmt.Println("|          Menu Hapus Data Pakaian         |")
+	fmt.Println("+------------------------------------------+")
+	fmt.Printf("| %-40s |\n", "[1] Hapus Data Berdasarkan ID")
+	fmt.Printf("| %-40s |\n", "[2] Hapus Semua Data")
+	fmt.Printf("| %-40s |\n", "[0] Menu Utama")
+	fmt.Println("+------------------------------------------+")
+	fmt.Print("Pilih [0 - 2]? ")
+	fmt.Scan(&pilih)
+
+}
 func inisialisasiData() {
 	daftarToko[0] = pakaian{id: 1, nama: "Kaos Polos", warna: "Merah", ukuran: "M", stok: 15}
 	daftarToko[1] = pakaian{id: 2, nama: "Kemeja Flanel", warna: "Biru", ukuran: "L", stok: 10}
@@ -413,8 +431,45 @@ func tambahPakaianMany(data *datapakaian) {
 		inputData--
 	}
 }
-func editData() {
-
+func editDatabyId(data *datapakaian) {
+	var id, stok int
+	var nama, warna, ukuran string
+	fmt.Print("Masukkan Id   	: ")
+	fmt.Scan(&id)
+	for !findId(data, id) {
+		fmt.Println("Not Found!")
+		fmt.Print("Masukkan Id   	: ")
+		fmt.Scan(&id)
+	}
+	fmt.Print("Masukkan Nama   	: ")
+	fmt.Scan(&nama)
+	fmt.Print("Masukkan Stok   	: ")
+	fmt.Scan(&stok)
+	fmt.Print("Masukkan Warna   : ")
+	fmt.Scan(&warna)
+	fmt.Print("Masukkan Ukuran  : ")
+	fmt.Scan(&ukuran)
+	data[id-1].nama = nama
+	data[id-1].stok = stok
+	data[id-1].warna = warna
+	data[id-1].ukuran = ukuran
+}
+func findId(data *datapakaian, id int) bool {
+	var left, right, mid int
+	var found bool
+	found = false
+	right = jumlahData - 1
+	for left <= right && !found {
+		mid = (left + right) / 2
+		if data[mid].id == id {
+			found = true
+		} else if data[mid].id > id {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return found
 }
 func ukuranBinarySearchAsc(A *datapakaian, n int, x string) {
 	var left, right, mid int
@@ -837,6 +892,31 @@ func warnaSelecSortDesc(A *datapakaian, n int) {
 	}
 }
 
+// Kay
+// ukuran insertion sort asc
+func ukuranInsertAsc(A *datapakaian, n int) {
+
+}
+
+// ukuran insertion sort desc
+func ukuranInsertDesc(A *datapakaian, n int) {
+
+}
+
+// warna insertion asc
+func warnaInsertAsc(A *datapakaian, n int) {
+
+}
+
+// warna insertion desc
+func warnaInsertDesc(A *datapakaian, n int) {
+
+}
+
+func menuExit() {
+	fmt.Println("Terimakasih telah menggunakan aplikasi ini >_<")
+
+}
 func clearScreen() {
 
 }
@@ -862,7 +942,7 @@ func main() {
 		case 6:
 			menuSorting()
 		case 0:
-			fmt.Println("Terimakasih telah menggunakan aplikasi ini >_<")
+			menuExit()
 			return
 		default:
 			fmt.Println("Pilihan tidak valid, silahkan coba lagi")
